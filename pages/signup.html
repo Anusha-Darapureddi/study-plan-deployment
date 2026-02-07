@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Signup</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">MyApp</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/home">Home</a>
+        </li>
+      </ul>
+
+      <div class="d-flex">
+        <a href="/login" class="btn btn-outline-light me-2">Login</a>
+        <a href="/signup" class="btn btn-warning">Sign Up</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Signup Form -->
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow">
+        <div class="card-body p-4">
+          <h3 class="text-center mb-4">Create Account</h3>
+
+          <form>
+            <!-- Name -->
+            <div class="mb-3">
+              <label class="form-label">Full Name</label>
+              <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input id="email" type="email" class="form-control" placeholder="Enter email" required>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <div class="input-group">
+              <input id="password" type="password" class="form-control" placeholder="Enter password" required>
+              <span class="input-group-text" id="togglepassword" style="cursor:pointer;"> 👁️</span>
+            </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="mb-3">
+              <label class="form-label">Phone Number</label>
+              <input type="tel" id="phone" class="form-control" placeholder="Enter phone number" required>
+            </div>
+
+            <!-- Button -->
+            <div class="d-grid">
+              <button type="button" class="btn btn-warning" id="submit">
+                Sign Up
+              </button>
+            </div>
+          </form>
+
+          <p class="text-center mt-3 mb-0">
+            Already have an account?
+            <a href="/login" class="text-decoration-none">Login</a>
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+ const passwordinput=document.getElementById("password")
+        const toggle=document.getElementById('togglepassword')
+         toggle.addEventListener("click",()=>{
+          password.type=password.type==="password"?"text":"password"
+          toggle.textContent=password.type==="password"?"👁️":"👁️"//represents show hide
+        })
+
+
+    async function postData(url='',data={}){
+        const response=await fetch(url,{
+            method:"post",
+            headers:{
+                'content-type':'application/json'
+            },
+            body:JSON.stringify(data)
+        })
+        let rdata=await response.json()
+        return rdata
+    }
+
+
+    const submit=document.getElementById('submit')
+    submit.addEventListener("click",async()=>{
+        const email=document.getElementById("email").value
+        const password=passwordinput.value.trim()
+        
+        const name=document.getElementById("name").value
+        const phone=document.getElementById("phone").value
+       
+        console.log("submitting this data",name,email,password,phone)
+        let resp=await postData('/signup',{name,email,password,phone})
+       
+       
+        if(email.trim()==="" ||password.trim()===""|| name.trim()===""||phone.trim()===""){
+        alert("please fill all the fields")
+        return
+      } 
+      if(email.length<8){
+        alert("email should contain atleast 8 characters")
+        return
+      }
+      if(!/[A-Z]/.test(email)){
+        alert("email must contain atleast one capital letter")
+        return
+      }
+      if(!/[0-9]/.test(email)){
+        alert("email must contain atleast one number")
+        return
+      }
+      if(!/[!@#$%^&*]/.test(email)){
+        alert("email must contain atleast one special character ")
+        return
+      }
+      if(password.length<6){
+        alert("password must contain 6 characters")
+        return
+      }
+      if(!/[0-9]/.test(password)){
+         alert("email must contain atleast one number")
+        return
+      }
+      
+      if(phone.length<10){
+        alert("number should be 10 digits")
+        return
+      }
+  
+      alert("details are saved")
+       if(resp.success){
+            alert("user created and you can signup now")
+        }
+    })
+     
+</script>
+</body>
+</html>
