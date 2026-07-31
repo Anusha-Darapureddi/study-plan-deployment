@@ -108,7 +108,7 @@
      noteContainer.innerHTML=""
      notes.forEach(element=>{
 
-    const isCompleted=localStorage.getItem(`task_${element._id}`)==="completed"
+    const isCompleted=localStorage.getItem(`task_${element._id}`)==="completed"//we clicked but it is disappeared when we refresh so for that this line
    
 
 
@@ -175,7 +175,7 @@
   }
 
 
-  //for completed button
+  //for completed button(when clicking getting completed)
   function markCompleted(btn,id) {
   const li = btn.closest("li")
   const status = li.querySelector(".status")
