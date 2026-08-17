@@ -12,7 +12,7 @@ mongoose.connect(process.env.MONGO_URI)
 .then(()=>{
     console.log("mongodb connected succesfully")
 })
-const port=8000
+const port = process.env.PORT || 8000
 app.use(express.json())
 app.get('/home',(req,res)=>{
     res.sendFile("pages/home.html",{root:__dirname})
