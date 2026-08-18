@@ -101,7 +101,7 @@
   }
   else{
     const user=JSON.parse(userData)
-    postData('/getnotes',{email:user.email})
+    postData('https://study-plan-45v4.onrender.com/getnotes',{email:user.email})
    .then(data=>{
      let notes=data.notes || []
      let noteContainer=document.querySelector(".mynotes")
@@ -207,9 +207,10 @@
     return
   }
   console.log("submitting this data",subject,date,time,email)
-  const resp=await postData('/addanote',{subject,date,time,email})
+  const resp=await postData('https://study-plan-45v4.onrender.com/addanote',{subject,date,time,email})
   if(resp.success){
     alert("note created")
+    location.reload()
     
   }
   })
@@ -218,7 +219,7 @@
     if(!confirm("delete this study plan ?"))
     return 
 
-    const res=await fetch(`/deletenotes/${id}`,{
+    const res=await fetch(`https://study-plan-45v4.onrender.com/deletenotes/${id}`,{
       method:"DELETE"
     })
     const data=await res.json()

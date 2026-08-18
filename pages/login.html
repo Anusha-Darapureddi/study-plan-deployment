@@ -100,10 +100,11 @@
         const password=document.getElementById("password").value
         
         console.log("submitting this data",email,password)
-        let resp=await postData('/login',{email,password})
+        let resp=await postData('https://study-plan-45v4.onrender.com/login',{email,password})
         if(resp.success){
           alert("you are logged in")
           localStorage.setItem("user",JSON.stringify({email:resp.loginuser}))
+          window.location.href="/home"
           console.log(localStorage.getItem('user'))
           }
         

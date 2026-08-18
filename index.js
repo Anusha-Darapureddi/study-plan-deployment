@@ -4,16 +4,19 @@ const dotenv=require("dotenv")
 const bcrypting=require("bcrypt")
 const User=require('./models/signupdb.js')
 const Note=require('./models/notesdb.js')
-
+dotenv.config()
 const app=express()
 app.use(express.urlencoded({extended:true}))
-dotenv.config()
+app.use(express.json())
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>{
     console.log("mongodb connected succesfully")
 })
+.catch((err)=>{
+    console.log("mongodb connection error:",err.message)
+})
 const port = process.env.PORT || 8000
-app.use(express.json())
+
 app.get('/', (req, res) => {
     res.redirect('/home')
 })
@@ -21,6 +24,7 @@ app.get('/', (req, res) => {
 app.get('/home', (req, res) => {
     res.sendFile("pages/home.html", { root: __dirname })
 })
+
 app.get('/signup',(req,res)=>{
     res.sendFile("pages/signup.html",{root:__dirname})
 
