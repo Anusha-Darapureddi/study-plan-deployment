@@ -14,7 +14,7 @@ mongoose.connect(process.env.MONGO_URI)
 })
 const port = process.env.PORT || 8000
 app.use(express.json())
-app.get('/home',(req,res)=>{
+app.get('/',(req,res)=>{
     res.sendFile("pages/home.html",{root:__dirname})
 })
 app.get('/signup',(req,res)=>{
