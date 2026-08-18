@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGO_URI)
 const port = process.env.PORT || 8000
 
 app.get('/', (req, res) => {
-    res.redirect('/home')
+    res.redirect('/signup')
 })
 
 app.get('/home', (req, res) => {
